@@ -10,7 +10,7 @@ RUN pip3 install -U "https://github.com/Nuitka/Nuitka/archive/factory.zip"
 RUN pip3 install pexpect pyyaml
 
 
-RUN mkdir /build
+RUN mkdir /build /package
 WORKDIR /build
 
 RUN wget https://www.python.org/ftp/python/$PYTHON_VER/Python-$PYTHON_VER.tgz && tar -xzf Python-$PYTHON_VER.tgz
@@ -28,5 +28,6 @@ RUN ls -la
 
 WORKDIR xxh.dist
 RUN ./xxh -V
-
-CMD tar -zcf /result/xxh-portable-musl-alpine-`uname`-`uname -m`.tar.gz xxh && ls -sh1 /result
+RUN cp xxh /build/xxh/xxh_xxh/xxh.*sh /build/xxh/xxh_xxh/*.xxhc  /package
+WORKDIR /package
+CMD tar -zcf /result/xxh-portable-musl-alpine-`uname`-`uname -m`.tar.gz * && ls -sh1 /result
