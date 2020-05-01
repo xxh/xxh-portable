@@ -20,6 +20,8 @@ RUN ./configure LDFLAGS="-static" --disable-shared
 RUN make LDFLAGS="-static" LINKFORSHARED=" "
 RUN cp libpython$PYTHON_LIB_VER.a /usr/lib
 
+RUN echo 'xxh 0.8.2'
+
 WORKDIR /build
 RUN git clone --depth 1 https://github.com/xxh/xxh
 ENV LDFLAGS "-static -l:libpython3.8.a"
